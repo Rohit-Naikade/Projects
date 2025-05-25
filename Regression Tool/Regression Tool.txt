@@ -1,0 +1,43 @@
+I will explain this project using the STAR method:
+
+Problem Statement (Situation):
+
+In the Regulatory Reporting domain, our team is responsible for developing and maintaining markets-related reports for stakeholders primarily based in Japan and China. Each new report build or change request requires thorough regression testing to ensure existing functionalities remain unaffected.
+
+Previously, the process involved implementing the changes and then handing them over to the users for UAT, which often resulted in multiple testing cycles due to defects or mismatches—leading to significant time delays and overhead.
+
+To streamline this, we conceptualized and developed an in-house Regression Tool. This solution allowed us to automatically validate report data against expected outcomes, significantly reducing manual effort, test cycle time, and dependency on end-users for regression validation.
+
+Your Role (Task):
+
+I was involved in this project right from its inception—starting with the initial idea, proof of concept (PoC), and through to full-scale development. We began by brainstorming the concept internally, after which I helped create a PoC to validate its feasibility. We then presented it to senior management, and upon receiving their approval, we proceeded with the implementation.
+
+I played a key role in developing the solution, coordinating multiple rounds of testing in collaboration with my colleagues to ensure reliability and accuracy. Once thoroughly validated, we successfully deployed the tool to production.
+
+Actions You Took:
+
+I was involved is this project from brainstorming, POC and full-scale development.
+
+Results:
+
+The Regression Tool led to a 90% reduction in manual regression testing efforts and cut test cycle time by 95%, resulting in a significant boost in overall testing efficiency. It also enhanced developer productivity by 90%, 
+allowing the team to focus more on feature development and issue resolution rather than repetitive validation tasks.
+
+
+Working:
+
+Regression tool is a microservices application that executes processes, store generated report files and compares the results of generated files' contents and share match/mismatch results.
+
+catalog controller exposes API for getting all the catalogs configured in a system. user can select a catalog and a cob date to execute a report. 
+application will fetch all the report artifacts.
+catalog job controller exposes an API to submit a job for comparison. this job execution will be queued and stored a regression table.
+then application gets to count of running jobs, if number of running jobs are less than max concurrent job allowed, start a new execution.
+
+This application maintains one table to store all regression requests.
+
+
+
+when a job execution starts, it picks connection details(SIT/UAT/PROD DR) based on user input. it fetches report artifacts from respective environment, prepares a command with all pentaho jars, report artifacts
+and execute a process using process builder and store generated files in NAS drive.
+
+once 2 versions of jobs executed, we can request a comparison of 2 jobs. this request submitted to kcompare server and kcompare compares 2 jobs, and send response back.
